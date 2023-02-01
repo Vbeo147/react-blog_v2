@@ -1,5 +1,9 @@
 import { authService, firebaseInstance } from "../firebase";
-import { AuthAction, AuthState } from "../interface/AuthTypes";
+import {
+  AuthAction,
+  AuthState,
+  ActionDispatchFunc,
+} from "../interface/AuthTypes";
 import { authUtils } from "../lib/authUtils";
 import { Dispatch } from "redux";
 
@@ -8,10 +12,7 @@ const AUTH_SUCCESS = "AuthReducer/AUTH_SUCCESS";
 const AUTH_ERROR = "AuthReducer/AUTH_ERROR";
 const AUTH_LOGOUT = "AuthReducer/AUTH_LOGOUT";
 
-const ActionDispatch = (
-  type: string,
-  param?: firebase.default.auth.UserCredential
-) => {
+const ActionDispatch: ActionDispatchFunc = (type, param) => {
   if (param) {
     return { type, param };
   } else {

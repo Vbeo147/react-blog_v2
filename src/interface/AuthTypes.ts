@@ -1,6 +1,11 @@
+export type ActionDispatchFunc = (
+  type: string,
+  param?: firebase.default.auth.UserCredential | string
+) => { type: string; param?: firebase.default.auth.UserCredential | string };
+
 export interface AuthAction {
   type: string;
-  param: firebase.default.auth.UserCredential | string;
+  param?: firebase.default.auth.UserCredential | string;
 }
 
 export interface AuthState {
