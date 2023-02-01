@@ -1,6 +1,6 @@
 import Root from "../Root";
 import Home from "../routes/Home";
-import { RouteObject } from "react-router-dom";
+import { RouteObject, redirect } from "react-router-dom";
 
 export const routes: RouteObject[] = [
   {
@@ -12,5 +12,9 @@ export const routes: RouteObject[] = [
         element: <Home />,
       },
     ],
+  },
+  {
+    path: "*",
+    loader: () => redirect("/"),
   },
 ];

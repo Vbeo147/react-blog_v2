@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Menu from "./components/Menu";
 
 function Root() {
   return (
     <div>
-      Root
+      <Menu />
       <Outlet />
     </div>
   );
