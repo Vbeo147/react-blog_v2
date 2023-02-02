@@ -1,22 +1,24 @@
+import { IUser } from "../interface/AuthTypes";
+
 export const authUtils = {
-  loading: (prevState = null) => ({
-    loading: true,
-    data: prevState,
-    error: null,
-  }),
-  success: (data: firebase.default.auth.UserCredential) => ({
+  login: (data: IUser) => ({
     loading: false,
-    data,
+    auth: data,
     error: null,
   }),
   logout: () => ({
     loading: false,
-    data: null,
+    auth: null,
+    error: null,
+  }),
+  get: (data?: IUser) => ({
+    loading: false,
+    auth: data,
     error: null,
   }),
   error: (error: string) => ({
     loading: false,
-    data: null,
+    auth: null,
     error,
   }),
 };
