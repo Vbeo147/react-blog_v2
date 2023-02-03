@@ -1,38 +1,28 @@
-export interface IUser {
-  displayName: string | null;
-  email: string;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  metadata: {
-    createdAt: string;
-    creationTime: string;
-    lastLoginAt: string;
-    lastSignInTime: string;
-  };
-  photoURL: string;
-  uid: string;
-}
+export type FirebaseUser = firebase.default.auth.UserMetadata;
 
 export type Error = string;
 
 export type ActionDispatchFunc = (
   type: string,
-  param?: IUser | Error
-) => { type: string; param?: IUser | Error };
+  param?: FirebaseUser | Error
+) => {
+  type: string;
+  param?: FirebaseUser | Error;
+};
 
 export interface AuthAction {
   type: string;
-  param?: IUser | Error;
+  param?: FirebaseUser | Error;
 }
 
 export interface AuthState {
   github: {
     loading: boolean;
-    auth: IUser | null;
+    auth: FirebaseUser | null;
     error: Error | null;
   };
 }
 
-export interface ISelector {
+export interface AuthSelector {
   AuthReducer: AuthState;
 }

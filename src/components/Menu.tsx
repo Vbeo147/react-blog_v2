@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LoginAuth, LogoutAuth, onAuthChanged } from "../modules/AuthReducer";
 import { useAppDispatch, useAppSelector } from "../rootReducer";
-import { ISelector } from "../interface/AuthTypes";
+import { AuthSelector } from "../interface/AuthTypes";
 
 function Menu() {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ function Menu() {
     AuthReducer: {
       github: { auth },
     },
-  } = useAppSelector<ISelector>((state) => state);
+  } = useAppSelector<AuthSelector>((state) => state);
   const onLogClick = () => {
     if (auth) {
       dispatch(LogoutAuth());

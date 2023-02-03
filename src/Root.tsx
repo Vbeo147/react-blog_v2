@@ -3,11 +3,11 @@ import Menu from "./components/Menu";
 import { useAppDispatch, useAppSelector } from "./rootReducer";
 import { useEffect } from "react";
 import { onAuthChanged } from "./modules/AuthReducer";
-import { ISelector } from "./interface/AuthTypes";
+import { AuthSelector } from "./interface/AuthTypes";
 
 function Root() {
   const dispatch = useAppDispatch();
-  const { AuthReducer } = useAppSelector<ISelector>((state) => state);
+  const { AuthReducer } = useAppSelector<AuthSelector>((state) => state);
   useEffect(() => {
     dispatch(onAuthChanged());
   }, []);

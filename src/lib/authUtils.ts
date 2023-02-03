@@ -1,9 +1,22 @@
-import { IUser } from "../interface/AuthTypes";
+import { FirebaseUser, Error } from "../interface/AuthTypes";
 
-export const authUtils = {
-  login: (data: IUser) => ({
+interface authUtil {
+  loading: boolean;
+  auth: FirebaseUser | null;
+  error: Error | null;
+}
+
+interface AUtils {
+  login: (data: FirebaseUser) => authUtil;
+  logout: () => authUtil;
+  get: (data: FirebaseUser) => authUtil;
+  error: (error: Error) => authUtil;
+}
+
+export const authUtils: AUtils = {
+  login: (data) => ({
     loading: false,
-    auth: data,
+    auth: data || null,
     error: null,
   }),
   logout: () => ({
@@ -11,12 +24,12 @@ export const authUtils = {
     auth: null,
     error: null,
   }),
-  get: (data?: IUser) => ({
+  get: (data) => ({
     loading: false,
-    auth: data,
+    auth: data || null,
     error: null,
   }),
-  error: (error: string) => ({
+  error: (error) => ({
     loading: false,
     auth: null,
     error,

@@ -2,30 +2,25 @@ import { authService, firebaseInstance } from "../firebase";
 import {
   AuthAction,
   AuthState,
-  ActionDispatchFunc,
+  FirebaseUser,
+  Error,
 } from "../interface/AuthTypes";
 import { authUtils } from "../lib/authUtils";
+import { ActionDispatch } from "../lib/DispatchUtils";
 import { Dispatch } from "redux";
-import { IUser } from "../interface/AuthTypes";
 
-const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";
-const AUTH_LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";
-const AUTH_GET_SUCCESS = "AUTH_GET_SUCCESS";
-const AUTH_ERROR = "AUTH_ERROR";
-
-const ActionDispatch: ActionDispatchFunc = (type, param) => {
-  if (param) {
-    return { type, param };
-  } else {
-    return { type };
-  }
-};
+const AUTH_LOGIN_SUCCESS = "AuthReducer/AUTH_LOGIN_SUCCESS";
+const AUTH_LOGOUT_SUCCESS = "AuthReducer/AUTH_LOGOUT_SUCCESS";
+const AUTH_GET_SUCCESS = "AuthReducer/AUTH_GET_SUCCESS";
+const AUTH_ERROR = "AuthReducer/AUTH_ERROR";
 
 export const LoginAuth = () => async (dispatch: Dispatch) => {
   const githubProvider = new firebaseInstance.auth.GithubAuthProvider();
   await authService
     .signInWithPopup(githubProvider)
-    .then((data) => dispatch(ActionDispatch(AUTH_LOGIN_SUCCESS, data.user)))
+    .then((data) =>
+      dispatch(ActionDispatch(AUTH_LOGIN_SUCCESS, data.user as FirebaseUser))
+    )
     .catch((error) => dispatch(ActionDispatch(AUTH_ERROR, error)));
 };
 
@@ -39,7 +34,7 @@ export const LogoutAuth = () => async (dispatch: Dispatch) => {
 export const onAuthChanged = () => (dispatch: Dispatch) => {
   authService.onAuthStateChanged((user) => {
     if (user) {
-      dispatch(ActionDispatch(AUTH_GET_SUCCESS, user));
+      dispatch(ActionDispatch(AUTH_GET_SUCCESS, user as FirebaseUser));
     } else {
       dispatch(ActionDispatch(AUTH_GET_SUCCESS));
     }
@@ -54,22 +49,25 @@ const initialState: AuthState = {
   },
 };
 
-export default function AuthReducer(state = initialState, action: AuthAction) {
+export default function AuthReducer(
+  state: AuthState = initialState,
+  action: AuthAction
+) {
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return {
         ...state,
-        github: authUtils.login(action.param as IUser),
+        github: authUtils.login(action.param as FirebaseUser),
       };
     case AUTH_LOGOUT_SUCCESS:
       return { ...state, github: authUtils.logout() };
     case AUTH_GET_SUCCESS:
       return {
         ...state,
-        github: authUtils.get(action.param as IUser),
+        github: authUtils.get(action.param as FirebaseUser),
       };
     case AUTH_ERROR:
-      return { ...state, github: authUtils.error(action.param as string) };
+      return { ...state, github: authUtils.error(action.param as Error) };
     default:
       return state;
   }
