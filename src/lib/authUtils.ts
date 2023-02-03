@@ -2,8 +2,8 @@ import { FirebaseUser, Error } from "../interface/AuthTypes";
 
 interface authUtil {
   loading: boolean;
-  auth: FirebaseUser | null;
-  error: Error | null;
+  auth: FirebaseUser;
+  error: Error;
 }
 
 interface AUtils {

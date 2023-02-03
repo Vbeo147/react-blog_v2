@@ -1,6 +1,6 @@
-export type FirebaseUser = firebase.default.auth.UserMetadata;
+export type FirebaseUser = firebase.default.User | null;
 
-export type Error = string;
+export type Error = string | null;
 
 export type ActionDispatchFunc = (
   type: string,
@@ -18,8 +18,8 @@ export interface AuthAction {
 export interface AuthState {
   github: {
     loading: boolean;
-    auth: FirebaseUser | null;
-    error: Error | null;
+    auth: FirebaseUser;
+    error: Error;
   };
 }
 

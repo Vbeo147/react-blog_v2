@@ -18,9 +18,7 @@ export const LoginAuth = () => async (dispatch: Dispatch) => {
   const githubProvider = new firebaseInstance.auth.GithubAuthProvider();
   await authService
     .signInWithPopup(githubProvider)
-    .then((data) =>
-      dispatch(ActionDispatch(AUTH_LOGIN_SUCCESS, data.user as FirebaseUser))
-    )
+    .then((data) => dispatch(ActionDispatch(AUTH_LOGIN_SUCCESS, data.user)))
     .catch((error) => dispatch(ActionDispatch(AUTH_ERROR, error)));
 };
 
@@ -34,7 +32,7 @@ export const LogoutAuth = () => async (dispatch: Dispatch) => {
 export const onAuthChanged = () => (dispatch: Dispatch) => {
   authService.onAuthStateChanged((user) => {
     if (user) {
-      dispatch(ActionDispatch(AUTH_GET_SUCCESS, user as FirebaseUser));
+      dispatch(ActionDispatch(AUTH_GET_SUCCESS, user));
     } else {
       dispatch(ActionDispatch(AUTH_GET_SUCCESS));
     }
