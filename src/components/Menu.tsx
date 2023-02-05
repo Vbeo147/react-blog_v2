@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { LoginAuth, LogoutAuth, onAuthChanged } from "../modules/AuthReducer";
+import { LogoutAuth, LoginAuth } from "../modules/AuthReducer";
 import { useAppDispatch, useAppSelector } from "../rootReducer";
-import { AuthSelector } from "../interface/AuthTypes";
+import { AuthSelector } from "../interfaces/AuthTypes";
 
 function Menu() {
   const dispatch = useAppDispatch();

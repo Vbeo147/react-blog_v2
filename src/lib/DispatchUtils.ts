@@ -1,4 +1,4 @@
-import { ActionDisFunc, FirebaseUser, Error } from "../interface/AuthTypes";
+import { ActionDisFunc, FirebaseUser, Error } from "../interfaces/AuthTypes";
 
 export const AuthActionDis: ActionDisFunc<string, FirebaseUser | Error> = (
   type,

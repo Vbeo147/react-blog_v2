@@ -4,7 +4,7 @@ import {
   AuthState,
   FirebaseUser,
   Error,
-} from "../interface/AuthTypes";
+} from "../interfaces/AuthTypes";
 import { authUtils } from "../lib/authUtils";
 import { AuthActionDis } from "../lib/DispatchUtils";
 import { Dispatch } from "redux";

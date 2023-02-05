@@ -1,4 +1,4 @@
-import { FirebaseUser, Error } from "../interface/AuthTypes";
+import { FirebaseUser, Error } from "../interfaces/AuthTypes";
 
 interface authUtil {
   loading: boolean;

@@ -3,7 +3,7 @@ import Menu from "./components/Menu";
 import { useAppDispatch, useAppSelector } from "./rootReducer";
 import { useEffect } from "react";
 import { onAuthChanged } from "./modules/AuthReducer";
-import { AuthSelector } from "./interface/AuthTypes";
+import { AuthSelector } from "./interfaces/AuthTypes";
 import Sidebar from "./components/Sidebar";
 
 function Root() {
@@ -22,8 +22,12 @@ function Root() {
         <>
           <Menu />
           <div className="root-flex">
-            <Sidebar />
-            <Outlet />
+            <div className="root-side-width">
+              <Sidebar />
+            </div>
+            <div className="root-outlet-width">
+              <Outlet />
+            </div>
           </div>
         </>
       )}
