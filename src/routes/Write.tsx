@@ -1,36 +1,43 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 
 function Write() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<IForm>();
-  const onSubmit: SubmitHandler<IForm> = (data) => {
-    console.log(data);
-    reset({ title: "", content: "" });
+  const { handleSubmit, control, reset } = useForm<IForm>({
+    defaultValues: { title: "", content: "", tag: "" },
+  });
+  const { title, content, tag } = useControlForm(control);
+  const onSubmit: SubmitHandler<IForm> = ({ title, content, tag }) => {
+    if (title && tag) {
+      console.log(title, content, tag);
+      reset({ title: "", content: "", tag: "" });
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input
-          autoComplete="off"
+          required
           placeholder="title"
-          {...register("title", { required: true })}
+          value={title.value}
+          onChange={(e) => title.onChange(e.target.value)}
         />
         <input
-          autoComplete="off"
           placeholder="content"
-          {...register("content")}
+          value={content.value}
+          onChange={(e) => content.onChange(e.target.value)}
         />
       </div>
       <div>
-        <select {...register("tag", { required: true })}>
-          <option>test1</option>
-          <option>test2</option>
-          <option>test3</option>
+        <select
+          required
+          value={tag.value}
+          onChange={(e) => tag.onChange(e.target.value)}
+        >
+          {!tag.value && <option value="">select this tag</option>}
+          <option value="test1">test1</option>
+          <option value="test2">test2</option>
+          <option value="test3">test3</option>
         </select>
       </div>
       <button type="submit">Enter</button>
