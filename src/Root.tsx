@@ -4,21 +4,27 @@ import { useAppDispatch, useAppSelector } from "./rootReducer";
 import { useEffect } from "react";
 import { onAuthChanged } from "./modules/AuthReducer";
 import { AuthSelector } from "./interface/AuthTypes";
+import Sidebar from "./components/Sidebar";
 
 function Root() {
   const dispatch = useAppDispatch();
-  const { AuthReducer } = useAppSelector<AuthSelector>((state) => state);
+  const {
+    AuthReducer: { loading },
+  } = useAppSelector<AuthSelector>((state) => state);
   useEffect(() => {
     dispatch(onAuthChanged());
   }, []);
   return (
     <div>
-      {AuthReducer.github.loading ? (
+      {loading ? (
         "Loading..."
       ) : (
         <>
           <Menu />
-          <Outlet />
+          <div className="root-flex">
+            <Sidebar />
+            <Outlet />
+          </div>
         </>
       )}
     </div>

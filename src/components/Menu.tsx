@@ -6,9 +6,7 @@ import { AuthSelector } from "../interface/AuthTypes";
 function Menu() {
   const dispatch = useAppDispatch();
   const {
-    AuthReducer: {
-      github: { auth },
-    },
+    AuthReducer: { auth },
   } = useAppSelector<AuthSelector>((state) => state);
   const onLogClick = () => {
     if (auth) {
@@ -19,7 +17,14 @@ function Menu() {
   };
   return (
     <div className="menu-flex">
-      <button onClick={onLogClick}>{auth ? "Log Out" : "Log In"}</button>
+      <div className="menu-login-flex">
+        {auth?.photoURL && (
+          <img className="menu-img" src={auth?.photoURL} alt="" />
+        )}
+        <button onClick={onLogClick} style={{ cursor: "pointer" }}>
+          {auth ? "Log Out" : "Log In"}
+        </button>
+      </div>
       <button>
         <Link to={"/"}>Home</Link>
       </button>

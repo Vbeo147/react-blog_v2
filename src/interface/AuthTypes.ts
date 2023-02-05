@@ -2,12 +2,12 @@ export type FirebaseUser = firebase.default.User | null;
 
 export type Error = string | null;
 
-export type ActionDispatchFunc = (
-  type: string,
-  param?: FirebaseUser | Error
+export type ActionDisFunc<T, M> = (
+  type: T,
+  param?: M
 ) => {
-  type: string;
-  param?: FirebaseUser | Error;
+  type: T;
+  param?: M;
 };
 
 export interface AuthAction {
@@ -16,11 +16,9 @@ export interface AuthAction {
 }
 
 export interface AuthState {
-  github: {
-    loading: boolean;
-    auth: FirebaseUser;
-    error: Error;
-  };
+  loading: boolean;
+  auth: FirebaseUser;
+  error: Error;
 }
 
 export interface AuthSelector {

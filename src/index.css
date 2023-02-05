@@ -7,5 +7,41 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin-bottom: 10px;
+  border: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.menu-login-flex {
+  display: flex;
+  align-items: center;
+}
+
+.menu-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid lightgray;
+}
+
+.root-flex {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  border: 1px solid black;
+  height: 100vh;
+}
+
+.root-home-width {
+  width: 87%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.root-side-width {
+  width: 13%;
+  height: 100%;
+  border: 1px solid black;
+  margin-right: 20px;
 }

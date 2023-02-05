@@ -1,6 +1,9 @@
-import { ActionDispatchFunc } from "../interface/AuthTypes";
+import { ActionDisFunc, FirebaseUser, Error } from "../interface/AuthTypes";
 
-export const ActionDispatch: ActionDispatchFunc = (type, param) => {
+export const AuthActionDis: ActionDisFunc<string, FirebaseUser | Error> = (
+  type,
+  param
+) => {
   if (param) {
     return { type, param };
   } else {
