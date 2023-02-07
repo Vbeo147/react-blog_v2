@@ -17,7 +17,6 @@ function Write() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input
-          required
           placeholder="title"
           value={title.value}
           onChange={(e) => title.onChange(e.target.value)}
@@ -30,7 +29,6 @@ function Write() {
       </div>
       <div>
         <select
-          required
           value={tag.value}
           onChange={(e) => tag.onChange(e.target.value)}
         >

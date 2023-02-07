@@ -4,6 +4,7 @@ import {
   AuthState,
   FirebaseUser,
   Error,
+  GithubUser,
 } from "../interfaces/AuthTypes";
 import { authUtils } from "../lib/authUtils";
 import { AuthActionDis } from "../lib/DispatchUtils";
@@ -12,6 +13,7 @@ import { Dispatch } from "redux";
 const AUTH_LOGIN_SUCCESS = "AuthReducer/AUTH_LOGIN_SUCCESS";
 const AUTH_LOGOUT_SUCCESS = "AuthReducer/AUTH_LOGOUT_SUCCESS";
 const AUTH_GET_SUCCESS = "AuthReducer/AUTH_GET_SUCCESS";
+const AUTH_USERNAME = "AuthReducer/AUTH_USERNAME";
 const AUTH_ERROR = "AuthReducer/AUTH_ERROR";
 
 export const LoginAuth = () => async (dispatch: Dispatch) => {
@@ -30,9 +32,13 @@ export const LogoutAuth = () => async (dispatch: Dispatch) => {
 };
 
 export const onAuthChanged = () => (dispatch: Dispatch) => {
-  authService.onAuthStateChanged((user) => {
+  authService.onAuthStateChanged(async (user) => {
     if (user) {
       dispatch(AuthActionDis(AUTH_GET_SUCCESS, user));
+      await fetch(`https://api.github.com/user/${user.providerData[0]?.uid}`)
+        .then((res) => res.json())
+        .then((res) => dispatch(AuthActionDis(AUTH_USERNAME, res)))
+        .catch((error) => dispatch(AuthActionDis(AUTH_ERROR, error)));
     } else {
       dispatch(AuthActionDis(AUTH_GET_SUCCESS));
     }
@@ -42,6 +48,7 @@ export const onAuthChanged = () => (dispatch: Dispatch) => {
 const initialState: AuthState = {
   loading: true,
   auth: null,
+  github: null,
   error: null,
 };
 
@@ -55,7 +62,9 @@ export default function AuthReducer(
     case AUTH_LOGOUT_SUCCESS:
       return authUtils.logout();
     case AUTH_GET_SUCCESS:
-      return authUtils.get(action.param as FirebaseUser);
+      return authUtils.login(action.param as FirebaseUser);
+    case AUTH_USERNAME:
+      return { ...state, github: action.param as GithubUser };
     case AUTH_ERROR:
       return authUtils.error(action.param as Error);
     default:

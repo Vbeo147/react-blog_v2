@@ -1,37 +1,28 @@
-import { FirebaseUser, Error } from "../interfaces/AuthTypes";
-
-interface authUtil {
-  loading: boolean;
-  auth: FirebaseUser;
-  error: Error;
-}
+import { FirebaseUser, Error, AuthState } from "../interfaces/AuthTypes";
 
 interface AUtils {
-  login: (data: FirebaseUser) => authUtil;
-  logout: () => authUtil;
-  get: (data: FirebaseUser) => authUtil;
-  error: (error: Error) => authUtil;
+  login: (data: FirebaseUser) => AuthState;
+  logout: () => AuthState;
+  error: (error: Error) => AuthState;
 }
 
 export const authUtils: AUtils = {
-  login: (data) => ({
+  login: (data = null) => ({
     loading: false,
-    auth: data || null,
+    auth: data,
+    github: null,
     error: null,
   }),
   logout: () => ({
     loading: false,
     auth: null,
-    error: null,
-  }),
-  get: (data) => ({
-    loading: false,
-    auth: data || null,
+    github: null,
     error: null,
   }),
   error: (error) => ({
     loading: false,
     auth: null,
+    github: null,
     error,
   }),
 };
