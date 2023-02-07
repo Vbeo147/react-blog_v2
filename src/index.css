@@ -13,9 +13,7 @@
 
 .menu-login-flex {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 16%;
 }
 
 .menu-img {
