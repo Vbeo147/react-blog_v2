@@ -22,7 +22,7 @@ function Menu() {
         {github?.avatar_url && auth?.photoURL ? (
           <img
             className="menu-img"
-            src={github.avatar_url || auth.photoURL}
+            src={github.avatar_url || auth.photoURL || ""}
             alt=""
           />
         ) : null}

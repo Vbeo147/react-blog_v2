@@ -1,6 +1,10 @@
 export type FirebaseUser = firebase.default.User | null;
 
-export interface GithubUser {
+export type Error = string | null;
+
+export type GithubUser = GithubAPI | null;
+
+export interface GithubAPI {
   login: string;
   id: string;
   node_id: string;
@@ -27,8 +31,6 @@ export interface GithubUser {
   updated_at: string;
 }
 
-export type Error = string | null;
-
 export type ActionDisFunc<T, M> = (
   type: T,
   param?: M
@@ -45,7 +47,7 @@ export interface AuthAction {
 export interface AuthState {
   loading: boolean;
   auth: FirebaseUser;
-  github: GithubUser | null;
+  github: GithubUser;
   error: Error;
 }
 

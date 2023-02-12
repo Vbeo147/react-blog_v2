@@ -8,7 +8,8 @@ import {
 } from "../interfaces/AuthTypes";
 import { authUtils } from "../lib/authUtils";
 import { AuthActionDis } from "../lib/DispatchUtils";
-import { Dispatch } from "redux";
+import { Dispatch, Store } from "redux";
+import axios from "axios";
 
 const AUTH_LOGIN_SUCCESS = "AuthReducer/AUTH_LOGIN_SUCCESS";
 const AUTH_LOGOUT_SUCCESS = "AuthReducer/AUTH_LOGOUT_SUCCESS";
@@ -31,19 +32,22 @@ export const LogoutAuth = () => async (dispatch: Dispatch) => {
     .catch((error) => dispatch(AuthActionDis(AUTH_ERROR, error)));
 };
 
-export const onAuthChanged = () => (dispatch: Dispatch) => {
-  authService.onAuthStateChanged(async (user) => {
-    if (user) {
-      dispatch(AuthActionDis(AUTH_GET_SUCCESS, user));
-      await fetch(`https://api.github.com/user/${user.providerData[0]?.uid}`)
-        .then((res) => res.json())
-        .then((res) => dispatch(AuthActionDis(AUTH_USERNAME, res)))
-        .catch((error) => dispatch(AuthActionDis(AUTH_ERROR, error)));
-    } else {
-      dispatch(AuthActionDis(AUTH_GET_SUCCESS));
-    }
-  });
-};
+export const onAuthChanged =
+  () => (dispatch: Dispatch, getState: () => AuthState) => {
+    authService.onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch(AuthActionDis(AUTH_GET_SUCCESS, user));
+        await axios
+          .get(`https://api.github.com/user/${user.providerData[0]?.uid}`)
+          .then((res) => dispatch(AuthActionDis(AUTH_USERNAME, res.data)))
+          .catch((error) => {
+            if (!getState().error) dispatch(AuthActionDis(AUTH_ERROR, error));
+          });
+      } else {
+        dispatch(AuthActionDis(AUTH_GET_SUCCESS));
+      }
+    });
+  };
 
 const initialState: AuthState = {
   loading: true,

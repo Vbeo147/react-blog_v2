@@ -9,7 +9,7 @@ import Sidebar from "./components/Sidebar";
 function Root() {
   const dispatch = useAppDispatch();
   const {
-    AuthReducer: { loading },
+    AuthReducer: { loading, github },
   } = useAppSelector<AuthSelector>((state) => state);
   useEffect(() => {
     dispatch(onAuthChanged());

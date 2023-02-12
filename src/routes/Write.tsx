@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import Editor from "../components/Editor";
 import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 
@@ -21,11 +22,7 @@ function Write() {
           value={title.value}
           onChange={(e) => title.onChange(e.target.value)}
         />
-        <input
-          placeholder="content"
-          value={content.value}
-          onChange={(e) => content.onChange(e.target.value)}
-        />
+        <Editor content={content} />
       </div>
       <div>
         <select
