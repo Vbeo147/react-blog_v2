@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Editor from "../components/Editor";
+import Editor from "../components/EditorC";
 import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 
 function Write() {
+  const [ImgLoading, SetImgLoading] = useState(false);
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
   });
@@ -22,7 +24,7 @@ function Write() {
           value={title.value}
           onChange={(e) => title.onChange(e.target.value)}
         />
-        <Editor content={content} />
+        <Editor content={content} SetImgLoading={SetImgLoading} />
       </div>
       <div>
         <select
@@ -35,7 +37,9 @@ function Write() {
           <option value="test3">test3</option>
         </select>
       </div>
-      <button type="submit">Enter</button>
+      <button disabled={ImgLoading} type="submit">
+        Enter
+      </button>
     </form>
   );
 }
