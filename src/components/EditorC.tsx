@@ -3,7 +3,7 @@ import { firebaseInstance } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Editor, Plugin } from "@ckeditor/ckeditor5-core";
+import { Editor } from "@ckeditor/ckeditor5-core";
 import {
   FileLoader,
   UploadAdapter,
