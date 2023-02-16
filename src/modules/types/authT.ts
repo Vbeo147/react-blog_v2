@@ -1,7 +1,5 @@
+import { AuthUtilState } from "../../lib/authUtils";
+
 export type FirebaseUser = firebase.default.User | null;
 
-export interface AuthState {
-  loading: boolean;
-  error: Error | null;
-  data: FirebaseUser;
-}
+export type AuthState = { auth: AuthUtilState<FirebaseUser, Error> };

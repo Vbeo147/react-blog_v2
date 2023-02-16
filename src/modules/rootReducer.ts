@@ -3,7 +3,6 @@ import {
   applyMiddleware,
   combineReducers,
   legacy_createStore as createStore,
-  AnyAction,
 } from "redux";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import ReduxThunk, { ThunkDispatch } from "redux-thunk";

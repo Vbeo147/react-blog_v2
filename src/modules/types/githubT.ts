@@ -1,7 +1,4 @@
 import { GithubProfile } from "../../api/github";
+import { AuthUtilState } from "../../lib/authUtils";
 
-export interface GithubState {
-  loading: boolean;
-  error: Error | null;
-  data: GithubProfile | null;
-}
+export type GithubState = { github: AuthUtilState<GithubProfile, Error> };

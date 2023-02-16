@@ -8,17 +8,31 @@ import Sidebar from "./components/Sidebar";
 
 function Root() {
   const dispatch = useAppDispatch();
-  const { authR, githubR } = useAppSelector((state) => state);
+  const {
+    authR: { auth },
+    githubR: { github },
+  } = useAppSelector((state) => state);
   useEffect(() => {
     dispatch(getAuthThunk());
   }, []);
   useEffect(() => {
-    dispatch(getGithubProfileThunk(authR.data?.providerData[0]?.uid as string));
-  }, [authR.data]);
+    dispatch(getGithubProfileThunk(auth.data?.providerData[0]?.uid as string));
+  }, [auth.data]);
   return (
     <div>
-      {authR.loading || githubR.loading ? (
-        "Loading..."
+      {auth.loading || github.loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "6vh",
+            fontWeight: "bold",
+            height: "100vh",
+          }}
+        >
+          Initializing...
+        </div>
       ) : (
         <>
           <Menu />
