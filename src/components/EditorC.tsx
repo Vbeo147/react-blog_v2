@@ -11,10 +11,10 @@ import {
 
 interface EditorProps {
   content: ControllerRenderProps<any, "content">;
-  SetImgLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  SetUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditorC({ content, SetImgLoading }: EditorProps) {
+function EditorC({ content, SetUploading }: EditorProps) {
   const readFileAsync = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -29,7 +29,7 @@ function EditorC({ content, SetImgLoading }: EditorProps) {
     });
   };
   function uploadAdapter(loader: FileLoader): UploadAdapter {
-    SetImgLoading(true);
+    SetUploading(true);
     return {
       abort() {},
       upload: () => {
@@ -49,11 +49,11 @@ function EditorC({ content, SetImgLoading }: EditorProps) {
               resolve({
                 default: storageUrl,
               });
-              SetImgLoading(false);
+              SetUploading(false);
             })
             .catch((err) => {
               reject(err);
-              SetImgLoading(false);
+              SetUploading(false);
             });
         });
       },

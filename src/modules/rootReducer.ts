@@ -3,13 +3,15 @@ import {
   applyMiddleware,
   combineReducers,
   legacy_createStore as createStore,
+  AnyAction,
 } from "redux";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import ReduxThunk, { ThunkDispatch } from "redux-thunk";
 import logger from "redux-logger";
-import AuthReducer from "./modules/AuthReducer";
+import githubR from "./auth/githubR";
+import authR from "./auth/authR";
 
-export const rootReducer = combineReducers({ AuthReducer });
+export const rootReducer = combineReducers({ githubR, authR });
 
 export type RootState = ReturnType<typeof rootReducer>;
 

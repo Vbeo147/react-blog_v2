@@ -5,7 +5,7 @@ import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 
 function Write() {
-  const [ImgLoading, SetImgLoading] = useState(false);
+  const [Uploading, SetUploading] = useState(false);
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
   });
@@ -24,7 +24,7 @@ function Write() {
           value={title.value}
           onChange={(e) => title.onChange(e.target.value)}
         />
-        <Editor content={content} SetImgLoading={SetImgLoading} />
+        <Editor content={content} SetUploading={SetUploading} />
       </div>
       <div>
         <select
@@ -37,7 +37,7 @@ function Write() {
           <option value="test3">test3</option>
         </select>
       </div>
-      <button disabled={ImgLoading} type="submit">
+      <button disabled={Uploading} type="submit">
         Enter
       </button>
     </form>
