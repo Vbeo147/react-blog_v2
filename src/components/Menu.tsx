@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../modules/rootReducer";
-import { LoginAuthThunk } from "../modules/auth/authR";
+import { LoginAuthThunk } from "../modules/auth/authReducer";
 
 function Menu() {
   const dispatch = useAppDispatch();
   const {
-    authR: { auth },
-    githubR: { github },
+    authReducer: { auth },
+    githubReducer: { github },
   } = useAppSelector((state) => state);
   const onLogClick = () => {
     if (auth.data) {

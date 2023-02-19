@@ -67,12 +67,13 @@ function EditorC({ content, SetUploading }: EditorProps) {
   return (
     <CKEditor
       editor={ClassicEditor}
-      config={{ extraPlugins: [uploadPlugin] }}
+      config={{
+        extraPlugins: [uploadPlugin],
+      }}
       data={content.value}
       onChange={(event, editor) => {
         const data = editor.getData();
         content.onChange(data);
-        console.log({ event, editor, data });
       }}
     />
   );

@@ -7,10 +7,15 @@ import {
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import ReduxThunk, { ThunkDispatch } from "redux-thunk";
 import logger from "redux-logger";
-import githubR from "./auth/githubR";
-import authR from "./auth/authR";
+import githubReducer from "./auth/githubReducer";
+import authReducer from "./auth/authReducer";
+import blogReducer from "./auth/blogReducer";
 
-export const rootReducer = combineReducers({ githubR, authR });
+export const rootReducer = combineReducers({
+  githubReducer,
+  authReducer,
+  blogReducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 

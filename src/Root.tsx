@@ -1,19 +1,21 @@
 import { Outlet } from "react-router-dom";
 import Menu from "./components/Menu";
 import { useAppDispatch, useAppSelector } from "./modules/rootReducer";
-import { getAuthThunk } from "./modules/auth/authR";
-import { getGithubProfileThunk } from "./modules/auth/githubR";
+import { getAuthThunk } from "./modules/auth/authReducer";
+import { getGithubProfileThunk } from "./modules/auth/githubReducer";
 import { useEffect } from "react";
 import Sidebar from "./components/Sidebar";
+import { BlogSnapThunk } from "./modules/auth/blogReducer";
 
 function Root() {
   const dispatch = useAppDispatch();
   const {
-    authR: { auth },
-    githubR: { github },
+    authReducer: { auth },
+    githubReducer: { github },
   } = useAppSelector((state) => state);
   useEffect(() => {
     dispatch(getAuthThunk());
+    dispatch(BlogSnapThunk());
   }, []);
   useEffect(() => {
     dispatch(getGithubProfileThunk(auth.data?.providerData[0]?.uid as string));
