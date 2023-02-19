@@ -6,9 +6,13 @@ import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { useRecoilState } from "recoil";
+import { ImageArray } from "../atoms/Image";
 
 function Write() {
   const [Uploading, SetUploading] = useState(false);
+  const [Image, setImage] = useRecoilState(ImageArray);
   const navigate = useNavigate();
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
@@ -16,17 +20,21 @@ function Write() {
   const { title, content, tag } = useControlForm(control);
   const onSubmit: SubmitHandler<IForm> = async ({ title, content, tag }) => {
     if (title && tag) {
+      const currentId = uuidv4();
       const blogObj: blogType = {
+        id: currentId,
+        Images: [...Image],
         title,
         content,
         tag,
         time: {
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
           updated: false,
         },
       };
-      await dbService.collection("blog").add(blogObj);
+      await dbService.doc(`blog/${currentId}`).set(blogObj);
+      setImage([]);
       reset({ title: "", content: "", tag: "" });
       navigate("/");
     }

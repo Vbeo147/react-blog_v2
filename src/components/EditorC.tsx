@@ -8,6 +8,9 @@ import {
   FileLoader,
   UploadAdapter,
 } from "@ckeditor/ckeditor5-upload/src/filerepository";
+import { Storage } from "../firebase";
+import { useSetRecoilState } from "recoil";
+import { ImageArray } from "../atoms/Image";
 
 interface EditorProps {
   content: ControllerRenderProps<any, "content">;
@@ -15,6 +18,7 @@ interface EditorProps {
 }
 
 function EditorC({ content, SetUploading }: EditorProps) {
+  const setImage = useSetRecoilState(ImageArray);
   const readFileAsync = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -33,15 +37,13 @@ function EditorC({ content, SetUploading }: EditorProps) {
     return {
       abort() {},
       upload: () => {
+        const currentId = uuidv4();
         return new Promise((resolve, reject) => {
           let storageUrl = "";
           loader.file
             .then(async (file) => {
               const Url = (await readFileAsync(file as Blob)) as string;
-              const storageRef = firebaseInstance
-                .storage()
-                .ref()
-                .child(uuidv4());
+              const storageRef = Storage.ref().child(currentId);
               const response = await storageRef.putString(Url, "data_url");
               storageUrl = await response.ref.getDownloadURL();
             })
@@ -49,6 +51,7 @@ function EditorC({ content, SetUploading }: EditorProps) {
               resolve({
                 default: storageUrl,
               });
+              setImage((prev) => [...prev, currentId]);
               SetUploading(false);
             })
             .catch((err) => {
