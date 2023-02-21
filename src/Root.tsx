@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Menu from "./components/Menu";
 import { useAppDispatch, useAppSelector } from "./modules/rootReducer";
 import { getAuthThunk } from "./modules/auth/authReducer";
@@ -6,12 +6,9 @@ import { getGithubProfileThunk } from "./modules/auth/githubReducer";
 import { useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import { BlogSnapThunk } from "./modules/auth/blogReducer";
-import { useSetRecoilState } from "recoil";
-import { ImageArray } from "./atoms/Image";
+import { CategorySnapThunk } from "./modules/auth/categoryReducer";
 
 function Root() {
-  const setImage = useSetRecoilState(ImageArray);
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const {
     authReducer: { auth },
@@ -20,13 +17,11 @@ function Root() {
   useEffect(() => {
     dispatch(getAuthThunk());
     dispatch(BlogSnapThunk());
+    dispatch(CategorySnapThunk());
   }, []);
   useEffect(() => {
     dispatch(getGithubProfileThunk(auth.data?.providerData[0]?.uid as string));
   }, [auth.data]);
-  useEffect(() => {
-    setImage([]);
-  }, [location.pathname]);
   return (
     <div>
       {auth.loading || github.loading ? (

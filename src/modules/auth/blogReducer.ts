@@ -1,9 +1,7 @@
 import { AnyAction } from "redux";
 import { createAction, createReducer } from "typesafe-actions";
 import { blogState, blogType } from "../types/blogTypes";
-import { ThunkUtil } from "../types/UtilTypes";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { dbService } from "../../firebase";
+import onSnaptUtil from "../../lib/SnapUtil";
 
 const GET_BLOG_SUCCESS = "blog/GET_BLOG_SUCCESS";
 const GET_BLOG_ERROR = "blog/GET_BLOG_ERROR";
@@ -11,23 +9,8 @@ const GET_BLOG_ERROR = "blog/GET_BLOG_ERROR";
 const getBlogSuccess = createAction(GET_BLOG_SUCCESS)<blogType[]>();
 const getBlogError = createAction(GET_BLOG_ERROR)<Error>();
 
-export function BlogSnapThunk(): ThunkUtil {
-  return async (dispatch) => {
-    try {
-      onSnapshot(
-        query(collection(dbService, "blog"), orderBy("title", "desc")),
-        (snapshot) => {
-          const blogObj = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          dispatch(getBlogSuccess(blogObj as blogType[]));
-        }
-      );
-    } catch (error) {
-      dispatch(getBlogError(error as Error));
-    }
-  };
+export function BlogSnapThunk() {
+  return onSnaptUtil("blog", "time", getBlogSuccess, getBlogError);
 }
 
 const initialState: blogState = {

@@ -10,11 +10,13 @@ import logger from "redux-logger";
 import githubReducer from "./auth/githubReducer";
 import authReducer from "./auth/authReducer";
 import blogReducer from "./auth/blogReducer";
+import categoryReducer from "./auth/categoryReducer";
 
 export const rootReducer = combineReducers({
   githubReducer,
   authReducer,
   blogReducer,
+  categoryReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

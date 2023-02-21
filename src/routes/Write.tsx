@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Editor from "../components/EditorC";
 import { dbService } from "../firebase";
@@ -6,7 +6,7 @@ import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import { useRecoilState } from "recoil";
 import { ImageArray } from "../atoms/Image";
 
@@ -20,7 +20,7 @@ function Write() {
   const { title, content, tag } = useControlForm(control);
   const onSubmit: SubmitHandler<IForm> = async ({ title, content, tag }) => {
     if (title && tag) {
-      const currentId = uuidv4();
+      const currentId = nanoid();
       const blogObj: blogType = {
         id: currentId,
         Images: [...Image],

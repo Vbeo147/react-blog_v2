@@ -1,6 +1,5 @@
 import { ControllerRenderProps } from "react-hook-form";
-import { firebaseInstance } from "../firebase";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Editor } from "@ckeditor/ckeditor5-core";
@@ -9,8 +8,6 @@ import {
   UploadAdapter,
 } from "@ckeditor/ckeditor5-upload/src/filerepository";
 import { Storage } from "../firebase";
-import { useSetRecoilState } from "recoil";
-import { ImageArray } from "../atoms/Image";
 
 interface EditorProps {
   content: ControllerRenderProps<any, "content">;
@@ -18,7 +15,6 @@ interface EditorProps {
 }
 
 function EditorC({ content, SetUploading }: EditorProps) {
-  const setImage = useSetRecoilState(ImageArray);
   const readFileAsync = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -37,7 +33,7 @@ function EditorC({ content, SetUploading }: EditorProps) {
     return {
       abort() {},
       upload: () => {
-        const currentId = uuidv4();
+        const currentId = nanoid();
         return new Promise((resolve, reject) => {
           let storageUrl = "";
           loader.file
@@ -51,7 +47,6 @@ function EditorC({ content, SetUploading }: EditorProps) {
               resolve({
                 default: storageUrl,
               });
-              setImage((prev) => [...prev, currentId]);
               SetUploading(false);
             })
             .catch((err) => {
@@ -67,6 +62,7 @@ function EditorC({ content, SetUploading }: EditorProps) {
       return uploadAdapter(loader);
     };
   }
+
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -77,6 +73,7 @@ function EditorC({ content, SetUploading }: EditorProps) {
       onChange={(event, editor) => {
         const data = editor.getData();
         content.onChange(data);
+        console.log(data);
       }}
     />
   );

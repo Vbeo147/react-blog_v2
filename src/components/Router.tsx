@@ -17,6 +17,10 @@ export const routes: RouteObject[] = [
         path: "write/:id",
         element: <Write />,
       },
+      {
+        path: "page/:page",
+        element: <Home />,
+      },
     ],
   },
   {
