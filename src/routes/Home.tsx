@@ -1,17 +1,16 @@
 import { useAppSelector } from "../modules/rootReducer";
+import { useNavigate, useParams } from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 function Home() {
   const { blogReducer } = useAppSelector((state) => state);
+  const { page } = useParams();
   return (
-    <>
-      <div className="root-home-width">
-        {blogReducer.loading
-          ? "Loading..."
-          : blogReducer.blog?.map((item) => (
-              <div key={item.id}>{item.title}</div>
-            ))}
-      </div>
-    </>
+    <Paginate
+      itemsPerPage={1}
+      items={blogReducer.blog ?? []}
+      page={page ? parseInt(page) : 1}
+    />
   );
 }
 
