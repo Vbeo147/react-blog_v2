@@ -4,7 +4,7 @@ import { useAppSelector } from "../modules/rootReducer";
 
 function Sidebar() {
   const [value, setValue] = useState("");
-  const { categoryReducer } = useAppSelector((state) => state);
+  const { categories } = useAppSelector((state) => state.categoryReducer);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dbService.doc(`categories/${value}`).set({});
@@ -35,7 +35,7 @@ function Sidebar() {
         />
         <button type="submit">Enter</button>
       </form>
-      {categoryReducer.categories?.map((item, index) => (
+      {categories?.map((item, index) => (
         <div key={index}>{item.id}</div>
       ))}
     </div>

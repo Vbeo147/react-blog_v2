@@ -4,10 +4,8 @@ import { LoginAuthThunk } from "../modules/auth/authReducer";
 
 function Menu() {
   const dispatch = useAppDispatch();
-  const {
-    authReducer: { auth },
-    githubReducer: { github },
-  } = useAppSelector((state) => state);
+  const { auth } = useAppSelector((state) => state.authReducer);
+  const { github } = useAppSelector((state) => state.githubReducer);
   const onLogClick = () => {
     if (auth.data) {
       dispatch(LoginAuthThunk(false));

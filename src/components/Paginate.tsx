@@ -1,4 +1,4 @@
-import ReactPaginate from "react-paginate";
+import ReactPaginate, { ReactPaginateProps } from "react-paginate";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,18 +10,24 @@ interface PaginateProps {
 }
 
 function Paginate({ itemsPerPage, items, page }: PaginateProps) {
-  const [itemOffset, setItemOffset] = useState(page - 1);
+  const [itemOffset, setItemOffset] = useState(
+    ((page - 1) * itemsPerPage) % items.length
+  );
+  const [select, setSelect] = useState(page - 1);
   const navigate = useNavigate();
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
   const handlePageClick = (selectedItem: { selected: number }) => {
-    const newOffset = (selectedItem.selected * itemsPerPage) % items.length;
+    const selectedValue = selectedItem.selected;
+    const newOffset = (selectedValue * itemsPerPage) % items.length;
     setItemOffset(newOffset);
+    setSelect(selectedValue);
   };
   useEffect(() => {
-    navigate(`/page/${itemOffset + 1}`);
-  }, [itemOffset]);
+    navigate(`/page/${select + 1}`);
+  }, [select]);
+  console.log("Paginate render");
   return (
     <>
       {currentItems.map((item) => (
@@ -34,7 +40,8 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
         pageRangeDisplayed={5}
         pageCount={pageCount}
         previousLabel="<"
-        forcePage={pageCount - 1}
+        activeClassName={"test"}
+        initialPage={page - 1}
       />
     </>
   );

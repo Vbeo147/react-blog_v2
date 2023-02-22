@@ -13,7 +13,6 @@ interface EditorProps {
   content: ControllerRenderProps<any, "content">;
   SetUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 function EditorC({ content, SetUploading }: EditorProps) {
   const readFileAsync = (file: Blob) => {
     return new Promise((resolve, reject) => {
@@ -62,7 +61,6 @@ function EditorC({ content, SetUploading }: EditorProps) {
       return uploadAdapter(loader);
     };
   }
-
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -73,7 +71,6 @@ function EditorC({ content, SetUploading }: EditorProps) {
       onChange={(event, editor) => {
         const data = editor.getData();
         content.onChange(data);
-        console.log(data);
       }}
     />
   );
