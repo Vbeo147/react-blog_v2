@@ -1,32 +1,29 @@
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../modules/rootReducer";
-import { blogType } from "../modules/types/blogTypes";
+import { findBlog } from "../lib/blogUtils";
 import DOMPurify from "dompurify";
-
-type findType = blogType | undefined;
+import { blogType } from "../modules/types/blogTypes";
 
 function Blog() {
   const { id } = useParams();
   const { blog, loading } = useAppSelector((state) => state.blogReducer);
-  const findBlog: findType = blog?.find(
-    (currentItem) => currentItem.id === id
-  ) as findType;
-  if (findBlog) {
+  const currentBlog = findBlog(blog, id);
+  if (currentBlog) {
     return (
       <>
         {!loading ? (
           <div>
-            <h1>{findBlog.title}</h1>
+            <h1>{currentBlog.title}</h1>
             <div>
-              <span>{findBlog.time.createdAt}</span>
+              <span>{currentBlog.time.createdAt}</span>
               &nbsp;&nbsp;
               <span>
-                {findBlog.time.updated ? "업데이트됨" : "업데이트안됨"}
+                {currentBlog.time.updated ? "업데이트됨" : "업데이트안됨"}
               </span>
             </div>
             <div
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(findBlog.content),
+                __html: DOMPurify.sanitize(currentBlog.content),
               }}
             />
           </div>
