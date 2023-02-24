@@ -2,6 +2,7 @@ import Root from "../Root";
 import Home from "../routes/Home";
 import Write from "../routes/Write";
 import { RouteObject, redirect } from "react-router-dom";
+import Category from "../routes/Category";
 
 export const routes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ export const routes: RouteObject[] = [
       {
         path: "page/:page",
         element: <Home />,
+      },
+      {
+        path: "category",
+        element: <Category />,
       },
     ],
   },

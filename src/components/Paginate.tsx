@@ -1,4 +1,4 @@
-import ReactPaginate, { ReactPaginateProps } from "react-paginate";
+import ReactPaginate from "react-paginate";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -25,6 +25,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
     setSelect(selectedValue);
   };
   useEffect(() => {
+    if (select > pageCount) return navigate("/");
     navigate(`/page/${select + 1}`);
   }, [select]);
   console.log("Paginate render");
