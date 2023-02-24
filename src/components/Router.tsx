@@ -3,6 +3,7 @@ import Home from "../routes/Home";
 import Write from "../routes/Write";
 import { RouteObject, redirect } from "react-router-dom";
 import Category from "../routes/Category";
+import Blog from "../routes/Blog";
 
 export const routes: RouteObject[] = [
   {
@@ -12,6 +13,10 @@ export const routes: RouteObject[] = [
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "blog/:id",
+        element: <Blog />,
       },
       { path: "write", element: <Write /> },
       {

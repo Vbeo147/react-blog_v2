@@ -24,6 +24,9 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
     setItemOffset(newOffset);
     setSelect(selectedValue);
   };
+  const onClick = (id: string) => {
+    navigate(`/blog/${id}`);
+  };
   useEffect(() => {
     if (select > pageCount) return navigate("/");
     navigate(`/page/${select + 1}`);
@@ -31,9 +34,13 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   console.log("Paginate render");
   return (
     <>
-      {currentItems.map((item) => (
-        <div key={item.id}>{item.title}</div>
-      ))}
+      <ul>
+        {currentItems.map((item) => (
+          <li onClick={() => onClick(item.id)} key={item.id}>
+            {item.title}
+          </li>
+        ))}
+      </ul>
       <ReactPaginate
         breakLabel="..."
         nextLabel=">"
