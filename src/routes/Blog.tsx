@@ -1,13 +1,17 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../modules/rootReducer";
 import { findBlog } from "../lib/blogUtils";
 import DOMPurify from "dompurify";
-import { blogType } from "../modules/types/blogTypes";
 
 function Blog() {
   const { id } = useParams();
   const { blog, loading } = useAppSelector((state) => state.blogReducer);
   const currentBlog = findBlog(blog, id);
+  const PrevPage = localStorage.getItem("page");
+  const navigate = useNavigate();
+  const onClick = (nav: string) => {
+    navigate(nav);
+  };
   if (currentBlog) {
     return (
       <>
@@ -26,6 +30,12 @@ function Blog() {
                 __html: DOMPurify.sanitize(currentBlog.content),
               }}
             />
+            <div>
+              <button onClick={() => onClick(`/write/${id}`)}>수정</button>
+              <button onClick={() => onClick(`/page/${PrevPage}`)}>
+                이전 페이지
+              </button>
+            </div>
           </div>
         ) : (
           <div>Loading..</div>

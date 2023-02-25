@@ -15,13 +15,14 @@ import { useAppSelector } from "../modules/rootReducer";
 function Write() {
   const [Uploading, SetUploading] = useState(false);
   const [Image, setImage] = useRecoilState(ImageArray);
-  const { blog } = useAppSelector((state) => state.blogReducer);
-  const { id } = useParams();
-  const currentBlog = findBlog(blog, id);
-  const navigate = useNavigate();
+  const { blogReducer, categoryReducer } = useAppSelector((state) => state);
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
   });
+  const { id } = useParams();
+  const currentBlog = findBlog(blogReducer.blog, id);
+  const PrevPage = localStorage.getItem("page");
+  const navigate = useNavigate();
   const { title, content, tag } = useControlForm(control);
   const resetValue = () => reset({ title: "", content: "", tag: "" });
   const onSubmit: SubmitHandler<IForm> = async ({ title, content, tag }) => {
@@ -85,15 +86,18 @@ function Write() {
             onChange={(e) => tag.onChange(e.target.value)}
           >
             {!tag.value && <option value="">select this tag</option>}
-            <option value="test1">test1</option>
-            <option value="test2">test2</option>
-            <option value="test3">test3</option>
+            {categoryReducer.categories?.map((item) => (
+              <option value={item.id}>{item.id}</option>
+            ))}
           </select>
         </div>
       )}
-      <button disabled={Uploading} type="submit">
-        Enter
-      </button>
+      <div>
+        <button disabled={Uploading} type="submit">
+          Enter
+        </button>
+        <button onClick={() => navigate(`/page/${PrevPage}`)}>Close</button>
+      </div>
     </form>
   );
 }

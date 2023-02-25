@@ -4,7 +4,7 @@ import { useAppSelector } from "../modules/rootReducer";
 
 function Sidebar() {
   const [value, setValue] = useState("");
-  const { categories } = useAppSelector((state) => state.categoryReducer);
+  const { categoryReducer, blogReducer } = useAppSelector((state) => state);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dbService.doc(`categories/${value}`).set({});
@@ -35,9 +35,18 @@ function Sidebar() {
         />
         <button type="submit">Enter</button>
       </form>
-      {categories?.map((item, index) => (
-        <div key={index}>{item.id}</div>
-      ))}
+      <div>
+        {categoryReducer.categories?.map((item, index) => (
+          <details key={index}>
+            <summary>{item.id}</summary>
+            {blogReducer.blog
+              ?.filter((current) => current.tag === item.id)
+              .map((currentBlog) => (
+                <div key={currentBlog.id}>{currentBlog.title}</div>
+              ))}
+          </details>
+        ))}
+      </div>
     </div>
   );
 }

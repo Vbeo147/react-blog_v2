@@ -31,7 +31,7 @@ function Menu() {
         <Link to={"/write"}>Write</Link>
       </button>
       <button>
-        <Link to={"/category"}>Category</Link>
+        <Link to={"/tag"}>tag</Link>
       </button>
     </div>
   );
