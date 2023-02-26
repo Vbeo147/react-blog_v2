@@ -1,14 +1,27 @@
 @import url("./css/reset.css");
 
-/* Temporary CSS */
+/* Root CSS */
+
+.root-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6vh;
+  font-weight: bold;
+  height: 100vh;
+}
 
 .menu-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 20px;
-  border: 1px solid black;
-  margin-bottom: 5px;
+  background-color: darkgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }
 
 .menu-login-flex {
@@ -26,11 +39,10 @@
 
 .root-flex {
   display: flex;
-  padding: 20px;
   justify-content: space-between;
-  border: 1px solid black;
   max-height: 100%;
   min-height: 100vh;
+  margin-top: 70px;
 }
 
 .root-outlet-width {
@@ -39,13 +51,16 @@
   min-height: 100vh;
   border: 1px solid black;
   padding: 20px;
+  margin-left: 15vw;
 }
 
 .root-side-width {
   width: 15%;
   height: 100vh;
   border: 1px solid black;
-  margin-right: 20px;
+  position: fixed;
+  left: 0;
+  overflow-y: scroll;
 }
 
 .test {

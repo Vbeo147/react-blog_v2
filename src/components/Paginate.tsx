@@ -32,27 +32,31 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
     navigate(`/page/${select + 1}`);
   }, [select]);
   console.log("Paginate render");
-  return (
-    <>
-      <ul>
-        {currentItems.map((item) => (
-          <li onClick={() => onClick(item.id)} key={item.id}>
-            {item.title}
-          </li>
-        ))}
-      </ul>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={pageCount}
-        previousLabel="<"
-        activeClassName={"test"}
-        initialPage={page - 1}
-      />
-    </>
-  );
+  if (items.length > 0) {
+    return (
+      <>
+        <ul>
+          {currentItems.map((item) => (
+            <li onClick={() => onClick(item.id)} key={item.id}>
+              {item.title}
+            </li>
+          ))}
+        </ul>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="<"
+          activeClassName={"test"}
+          initialPage={page - 1}
+        />
+      </>
+    );
+  } else {
+    return <div>검색결과가 없습니다.</div>;
+  }
 }
 
 export default Paginate;

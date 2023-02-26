@@ -86,8 +86,10 @@ function Write() {
             onChange={(e) => tag.onChange(e.target.value)}
           >
             {!tag.value && <option value="">select this tag</option>}
-            {categoryReducer.categories?.map((item) => (
-              <option value={item.id}>{item.id}</option>
+            {categoryReducer.categories?.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.id}
+              </option>
             ))}
           </select>
         </div>
@@ -96,7 +98,9 @@ function Write() {
         <button disabled={Uploading} type="submit">
           Enter
         </button>
-        <button onClick={() => navigate(`/page/${PrevPage}`)}>Close</button>
+        <button type="button" onClick={() => navigate(`/page/${PrevPage}`)}>
+          Close
+        </button>
       </div>
     </form>
   );

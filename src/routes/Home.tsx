@@ -1,24 +1,62 @@
 import { useAppSelector } from "../modules/rootReducer";
 import Paginate from "../components/Paginate";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { blogType } from "../modules/types/blogTypes";
 
 function Home() {
-  const { blogReducer } = useAppSelector((state) => state);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { blog, loading } = useAppSelector((state) => state.blogReducer);
   const { page } = useParams();
   const navigate = useNavigate();
-  console.log("Home render");
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+  const onReset = () => {
+    setSearch("");
+    inputRef.current?.focus();
+  };
+  const SearchItems = useMemo(
+    () =>
+      blog
+        ?.sort((a, b) => {
+          const updatedAt = (param: blogType) => param.time.updatedAt;
+          return sort
+            ? updatedAt(a) - updatedAt(b)
+            : updatedAt(b) - updatedAt(a);
+        })
+        .filter((item) =>
+          item.title.toLowerCase().includes(search.toLowerCase())
+        ),
+    [search, sort]
+  );
   useEffect(() => {
     if (Number.isNaN(parseInt(page as string))) navigate("/");
     localStorage.setItem("page", page ?? "1");
   }, [page]);
   return (
     <>
-      {!blogReducer.loading && (
+      <div>
+        <input
+          value={search}
+          onChange={onSearch}
+          type="text"
+          ref={inputRef}
+          placeholder="Search..."
+        />
+        <button type="reset" onClick={onReset}>
+          X
+        </button>
+        <button type="button" onClick={() => setSort((prev) => !prev)}>
+          {sort ? "오래된순" : "최신순"}
+        </button>
+      </div>
+      {!loading && (
         <Paginate
           itemsPerPage={1}
-          items={blogReducer.blog as blogType[]}
+          items={SearchItems as blogType[]}
           page={parseInt(page ?? "1")}
         />
       )}

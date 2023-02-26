@@ -5,8 +5,8 @@ import { getAuthThunk } from "./modules/auth/authReducer";
 import { getGithubProfileThunk } from "./modules/auth/githubReducer";
 import { useEffect } from "react";
 import Sidebar from "./components/Sidebar";
-import { BlogSnapThunk } from "./modules/auth/blogReducer";
-import { CategorySnapThunk } from "./modules/auth/categoryReducer";
+import { BlogSnapThunk } from "./modules/data/blogReducer";
+import { CategorySnapThunk } from "./modules/data/categoryReducer";
 
 function Root() {
   const dispatch = useAppDispatch();
@@ -29,18 +29,7 @@ function Root() {
   return (
     <div>
       {auth.loading || github.loading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "6vh",
-            fontWeight: "bold",
-            height: "100vh",
-          }}
-        >
-          Initializing...
-        </div>
+        <div className="root-loading">Initializing...</div>
       ) : (
         <>
           <Menu />

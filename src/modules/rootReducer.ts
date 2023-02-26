@@ -9,8 +9,8 @@ import ReduxThunk, { ThunkDispatch } from "redux-thunk";
 import logger from "redux-logger";
 import githubReducer from "./auth/githubReducer";
 import authReducer from "./auth/authReducer";
-import blogReducer from "./auth/blogReducer";
-import categoryReducer from "./auth/categoryReducer";
+import blogReducer from "./data/blogReducer";
+import categoryReducer from "./data/categoryReducer";
 
 export const rootReducer = combineReducers({
   githubReducer,
