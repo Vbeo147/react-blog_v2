@@ -1,0 +1,76 @@
+.menu-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  padding: 20px;
+  background-color: darkgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.menu-login-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 20%;
+}
+
+.menu-profile-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2vw;
+  user-select: none;
+}
+
+.menu-profile-flex span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.menu-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 2px solid lightgray;
+}
+
+.menu-login-btn {
+  font-size: 26px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-btn-flex {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 80%;
+}
+
+.menu-btn-flex button {
+  width: 100px;
+  border: none;
+  letter-spacing: 8px;
+  margin: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.menu-btn-active {
+  border-bottom: 1px solid black;
+}
+
+.menu-btn-flex a {
+  padding: 6px;
+  display: block;
+  width: 100%;
+  height: 100%;
+}

@@ -18,10 +18,6 @@ function Root() {
     dispatch(getAuthThunk());
     dispatch(BlogSnapThunk());
     dispatch(CategorySnapThunk());
-    window.document.body.querySelectorAll("input").forEach((node) => {
-      node.setAttribute("autoComplete", "off");
-      node.setAttribute("spellcheck", "false");
-    });
   }, []);
   useEffect(() => {
     dispatch(getGithubProfileThunk(auth.data?.providerData[0]?.uid as string));

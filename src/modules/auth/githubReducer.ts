@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { AnyAction } from "redux";
 import { createAsyncAction, createReducer } from "typesafe-actions";
-import { GithubProfile, getGithubProfile } from "../../api/github";
+import { GithubProfile, getGithubProfile } from "../../api";
 import { authUtils } from "../../lib/authUtils";
 import { ThunkUtil } from "../types/UtilTypes";
 import { GithubState } from "../types/githubTypes";

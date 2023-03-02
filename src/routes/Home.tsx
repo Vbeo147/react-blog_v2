@@ -1,18 +1,19 @@
 import { useAppSelector } from "../modules/rootReducer";
 import Paginate from "../components/Paginate";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, useTransition } from "react";
 import { blogType } from "../modules/types/blogTypes";
 
 function Home() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState(false);
+  const [isPending, SearchTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
   const { blog, loading } = useAppSelector((state) => state.blogReducer);
   const { page } = useParams();
   const navigate = useNavigate();
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    SearchTransition(() => setSearch(e.target.value));
   };
   const onReset = () => {
     setSearch("");
@@ -30,7 +31,7 @@ function Home() {
         .filter((item) =>
           item.title.toLowerCase().includes(search.toLowerCase())
         ),
-    [search, sort]
+    [search, sort, blog]
   );
   useEffect(() => {
     if (Number.isNaN(parseInt(page as string))) navigate("/");
@@ -38,27 +39,31 @@ function Home() {
   }, [page]);
   return (
     <>
-      <div>
-        <input
-          value={search}
-          onChange={onSearch}
-          type="text"
-          ref={inputRef}
-          placeholder="Search..."
-        />
-        <button type="reset" onClick={onReset}>
-          X
-        </button>
-        <button type="button" onClick={() => setSort((prev) => !prev)}>
-          {sort ? "오래된순" : "최신순"}
-        </button>
-      </div>
-      {!loading && (
-        <Paginate
-          itemsPerPage={1}
-          items={SearchItems as blogType[]}
-          page={parseInt(page ?? "1")}
-        />
+      {!loading ? (
+        <>
+          <div>
+            <input
+              value={search}
+              onChange={onSearch}
+              type="text"
+              ref={inputRef}
+              placeholder="Search..."
+            />
+            <button type="reset" onClick={onReset}>
+              X
+            </button>
+            <button type="button" onClick={() => setSort((prev) => !prev)}>
+              {sort ? "오래된순" : "최신순"}
+            </button>
+          </div>
+          <Paginate
+            itemsPerPage={1}
+            items={SearchItems as blogType[]}
+            page={parseInt(page ?? "1")}
+          />
+        </>
+      ) : (
+        "Loading..."
       )}
     </>
   );

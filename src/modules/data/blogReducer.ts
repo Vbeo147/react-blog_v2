@@ -10,7 +10,7 @@ const getBlogSuccess = createAction(GET_BLOG_SUCCESS)<blogType[]>();
 const getBlogError = createAction(GET_BLOG_ERROR)<Error>();
 
 export function BlogSnapThunk() {
-  return onSnaptUtil("blog", "time", getBlogSuccess, getBlogError);
+  return onSnaptUtil("blog", getBlogSuccess, getBlogError);
 }
 
 const initialState: blogState = {

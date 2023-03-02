@@ -9,3 +9,9 @@ body {
 * {
   box-sizing: border-box;
 }
+
+a,
+a:active {
+  text-decoration: none;
+  color: currentColor;
+}

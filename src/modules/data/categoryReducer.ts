@@ -11,7 +11,7 @@ const getCategorySuccess = createAction(GET_CATEGORY_SUCCESS)<string[]>();
 const getCategoryError = createAction(GET_CATEGORY_ERROR)<Error>();
 
 export function CategorySnapThunk() {
-  return onSnaptUtil("categories", null, getCategorySuccess, getCategoryError);
+  return onSnaptUtil("categories", getCategorySuccess, getCategoryError);
 }
 
 const initialState: categoryState = {
