@@ -15,6 +15,10 @@ export const routes: RouteObject[] = [
         element: <Home />,
       },
       {
+        path: "page/:page",
+        element: <Home />,
+      },
+      {
         path: "blog/:id",
         element: <Blog />,
       },
@@ -22,10 +26,6 @@ export const routes: RouteObject[] = [
       {
         path: "write/:id",
         element: <Write />,
-      },
-      {
-        path: "page/:page",
-        element: <Home />,
       },
       {
         path: "tag",
