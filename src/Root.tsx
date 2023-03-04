@@ -30,9 +30,7 @@ function Root() {
         <>
           <Menu />
           <div className="root-flex">
-            <div className="root-side-width">
-              <Sidebar />
-            </div>
+            <Sidebar />
             <div className="root-outlet-width">
               <Outlet />
             </div>

@@ -14,28 +14,16 @@ function Sidebar() {
     setValue(e.target.value);
   };
   return (
-    <div>
-      <form
-        onSubmit={onSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <div className="side-flex">
+      <form onSubmit={onSubmit} className="side-form-flex">
         <input
           value={value}
           onChange={onChange}
-          style={{
-            width: "80%",
-          }}
           type="text"
           placeholder="category"
         />
-        <button type="submit">Enter</button>
       </form>
-      <div>
+      <div className="side-tag-flex">
         {categoryReducer.categories?.map((item, index) => (
           <details key={index}>
             <summary>{item.id}</summary>

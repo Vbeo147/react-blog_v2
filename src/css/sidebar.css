@@ -1,0 +1,27 @@
+.side-flex {
+  width: 16%;
+  height: 100vh;
+  background-color: rgba(48, 49, 52, 0.5);
+  position: fixed;
+  left: 0;
+  overflow-y: auto;
+}
+
+.side-form-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+}
+
+.side-form-flex input {
+  width: 90%;
+}
+
+.side-tag-flex {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  user-select: none;
+}
