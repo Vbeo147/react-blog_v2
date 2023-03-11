@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../modules/rootReducer";
 import { findBlog } from "../lib/blogUtils";
 import DOMPurify from "dompurify";
+import { useEffect } from "react";
 
 function Blog() {
   const { id } = useParams();
@@ -12,6 +13,9 @@ function Blog() {
   const onClick = (nav: string) => {
     navigate(nav);
   };
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [window.history.state]);
   if (currentBlog) {
     return (
       <>

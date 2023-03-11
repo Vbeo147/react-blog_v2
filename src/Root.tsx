@@ -30,8 +30,10 @@ function Root() {
         <>
           <Menu />
           <div className="root-flex">
-            <Sidebar />
-            <div className="root-outlet-width">
+            <div>
+              <Sidebar />
+            </div>
+            <div className="root-outlet-width outlet-margin">
               <Outlet />
             </div>
           </div>

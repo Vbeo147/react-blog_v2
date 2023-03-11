@@ -1,8 +1,14 @@
 @import url("./css/reset.css");
 @import url("./css/menu.css");
 @import url("./css/sidebar.css");
+@import url("./css/home.css");
 
 /* Root CSS */
+
+:root {
+  --side-width: 230px;
+  --background-color: rgb(151, 152, 153);
+}
 
 .root-loading {
   display: flex;
@@ -22,12 +28,10 @@
 }
 
 .root-outlet-width {
-  width: 84%;
+  width: 100%;
   max-height: 100%;
   min-height: 100vh;
-  border: 1px solid black;
   padding: 36px 20px;
-  margin-left: 16vw;
 }
 
 .test {

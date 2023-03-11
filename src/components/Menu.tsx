@@ -4,7 +4,7 @@ import { LoginAuthThunk } from "../modules/auth/authReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useMatch } from "react-router-dom";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 function Menu() {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ function Menu() {
       dispatch(LoginAuthThunk(true));
     }
   };
-  const whileVariants: Variants = {
+  const whileVariants = {
     hover: (isMatch: boolean) => {
       if (isMatch) {
         return {};
