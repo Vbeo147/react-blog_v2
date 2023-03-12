@@ -6,7 +6,9 @@ import { blogType } from "../modules/types/blogTypes";
 
 function Home() {
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState(false);
+  const [sort, setSort] = useState<boolean>(
+    JSON.parse(localStorage.getItem("sort") as string) ?? false
+  );
   const [isPending, SearchTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
   const { blog, loading } = useAppSelector((state) => state.blogReducer);
@@ -37,6 +39,9 @@ function Home() {
     if (Number.isNaN(parseInt(page as string))) navigate("/");
     localStorage.setItem("page", page ?? "1");
   }, [page]);
+  useEffect(() => {
+    localStorage.setItem("sort", String(sort));
+  }, [sort]);
   return (
     <>
       {!loading ? (
@@ -52,7 +57,12 @@ function Home() {
             <button type="reset" onClick={onReset}>
               X
             </button>
-            <button type="button" onClick={() => setSort((prev) => !prev)}>
+            <button
+              type="button"
+              onClick={() => {
+                setSort((prev) => !prev);
+              }}
+            >
               {sort ? "오래된순" : "최신순"}
             </button>
           </div>

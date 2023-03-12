@@ -34,8 +34,8 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   console.log("Paginate render");
   if (items.length > 0) {
     return (
-      <div>
-        <ul>
+      <div className="paginate-flex">
+        <ul className="paginate-inner">
           {currentItems.map((item) => (
             <li onClick={() => onClick(item.id)} key={item.id}>
               {item.title}
