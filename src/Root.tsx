@@ -33,7 +33,7 @@ function Root() {
             <div>
               <Sidebar />
             </div>
-            <div className="root-outlet-width outlet-margin">
+            <div className="root-outlet-width">
               <Outlet />
             </div>
           </div>

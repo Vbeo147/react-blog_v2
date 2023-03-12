@@ -34,7 +34,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   console.log("Paginate render");
   if (items.length > 0) {
     return (
-      <>
+      <div>
         <ul>
           {currentItems.map((item) => (
             <li onClick={() => onClick(item.id)} key={item.id}>
@@ -52,7 +52,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
           activeClassName={"test"}
           initialPage={page - 1}
         />
-      </>
+      </div>
     );
   } else {
     return <div>검색결과가 없습니다.</div>;

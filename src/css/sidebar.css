@@ -27,10 +27,6 @@
   transition: all 0.1s linear;
 }
 
-.side-form-flex input:focus {
-  transform: scale(1.04);
-}
-
 .side-tag-flex {
   display: flex;
   height: auto;

@@ -41,7 +41,7 @@ function Home() {
     <>
       {!loading ? (
         <>
-          <div>
+          <div className="home-flex">
             <input
               value={search}
               onChange={onSearch}
@@ -57,7 +57,7 @@ function Home() {
             </button>
           </div>
           <Paginate
-            itemsPerPage={1}
+            itemsPerPage={5}
             items={SearchItems as blogType[]}
             page={parseInt(page ?? "1")}
           />

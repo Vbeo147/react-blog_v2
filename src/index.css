@@ -2,12 +2,14 @@
 @import url("./css/menu.css");
 @import url("./css/sidebar.css");
 @import url("./css/home.css");
+@import url("./css/paginate.css");
 
 /* Root CSS */
 
 :root {
   --side-width: 230px;
   --background-color: rgb(151, 152, 153);
+  --home-height: 40px;
 }
 
 .root-loading {
