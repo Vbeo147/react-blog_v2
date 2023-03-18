@@ -2,7 +2,7 @@ import axios from "axios";
 
 export interface GithubProfile {
   login: string;
-  id: string;
+  id: number;
   node_id: string;
   avatar_url: string;
   gravatar_id: string;

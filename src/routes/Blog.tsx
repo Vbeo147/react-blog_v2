@@ -23,7 +23,7 @@ function Blog() {
           <div>
             <h1>{currentBlog.title}</h1>
             <div>
-              <span>{currentBlog.time.createdAt}</span>
+              <span>{currentBlog.time.updatedAt}</span>
               &nbsp;&nbsp;
               <span>
                 {currentBlog.time.updated ? "업데이트됨" : "업데이트안됨"}

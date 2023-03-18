@@ -36,11 +36,27 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
     return (
       <div className="paginate-flex">
         <ul className="paginate-inner">
-          {currentItems.map((item) => (
-            <li onClick={() => onClick(item.id)} key={item.id}>
-              {item.title}
-            </li>
-          ))}
+          {currentItems.map((item) => {
+            const timestamp = new Intl.DateTimeFormat("ko-KR", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            return (
+              <li onClick={() => onClick(item.id)} key={item.id}>
+                <div className="paginate-inner-title">
+                  <span>{`[ ${item.tag} ]`}</span>
+                  <span>{item.title}</span>
+                </div>
+                <div className="paginate-inner-time">
+                  <span>{timestamp.format(item.time.updatedAt)}</span>
+                  {item.time.updated && <span>( 수정됨 )</span>}
+                </div>
+              </li>
+            );
+          })}
         </ul>
         <ReactPaginate
           breakLabel="..."

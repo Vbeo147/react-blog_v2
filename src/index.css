@@ -3,8 +3,14 @@
 @import url("./css/sidebar.css");
 @import url("./css/home.css");
 @import url("./css/paginate.css");
+@import url("https://fonts.googleapis.com/css2?family=Abel&family=Roboto+Condensed&display=swap");
 
 /* Root CSS */
+
+* {
+  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Abel", sans-serif;
+}
 
 :root {
   --side-width: 230px;
