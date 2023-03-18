@@ -27,9 +27,6 @@
 
 .paginate-inner-title {
   width: 60%;
-  word-break: break-all;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .paginate-inner-title span:first-child {

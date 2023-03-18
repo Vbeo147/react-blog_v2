@@ -46,7 +46,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
             });
             return (
               <li onClick={() => onClick(item.id)} key={item.id}>
-                <div className="paginate-inner-title">
+                <div className="paginate-inner-title root-overflow">
                   <span>{`[ ${item.tag} ]`}</span>
                   <span>{item.title}</span>
                 </div>

@@ -10,6 +10,13 @@ function Blog() {
   const currentBlog = findBlog(blog, id);
   const PrevPage = localStorage.getItem("page");
   const navigate = useNavigate();
+  const timestamp = new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   const onClick = (nav: string) => {
     navigate(nav);
   };
@@ -20,26 +27,37 @@ function Blog() {
     return (
       <>
         {!loading ? (
-          <div>
-            <h1>{currentBlog.title}</h1>
-            <div>
-              <span>{currentBlog.time.updatedAt}</span>
-              &nbsp;&nbsp;
-              <span>
-                {currentBlog.time.updated ? "업데이트됨" : "업데이트안됨"}
-              </span>
+          <div
+            className="blog-flex"
+            onWheel={(e) => {
+              const y = e.deltaY;
+              if (e.pageY >= 900) {
+                const el = document.querySelector(
+                  ".blog-btn"
+                ) as HTMLDivElement;
+                el.style.opacity = y > 0 ? "0" : "1";
+                el.style.visibility = y > 0 ? "hidden" : "visible";
+              }
+            }}
+          >
+            <div className="blog-title">
+              <h1 className="root-overflow">{currentBlog.title}</h1>
+              <div className="blog-time">
+                <span>{timestamp.format(currentBlog.time.updatedAt)}</span>
+                {currentBlog.time.updated && <span>( 수정됨 )</span>}
+              </div>
+            </div>
+            <div className="blog-btn">
+              <button onClick={() => onClick(`/write/${id}`)}>수정</button>
+              <button onClick={() => onClick(`/page/${PrevPage}`)}>
+                이전 페이지
+              </button>
             </div>
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(currentBlog.content),
               }}
             />
-            <div>
-              <button onClick={() => onClick(`/write/${id}`)}>수정</button>
-              <button onClick={() => onClick(`/page/${PrevPage}`)}>
-                이전 페이지
-              </button>
-            </div>
           </div>
         ) : (
           <div>Loading..</div>
