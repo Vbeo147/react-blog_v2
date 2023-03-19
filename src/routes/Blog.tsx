@@ -10,13 +10,6 @@ function Blog() {
   const currentBlog = findBlog(blog, id);
   const PrevPage = localStorage.getItem("page");
   const navigate = useNavigate();
-  const timestamp = new Intl.DateTimeFormat("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
   const onClick = (nav: string) => {
     navigate(nav);
   };
@@ -24,6 +17,13 @@ function Blog() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [window.history.state]);
   if (currentBlog) {
+    const timestamp = new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return (
       <>
         {!loading ? (
@@ -31,7 +31,7 @@ function Blog() {
             className="blog-flex"
             onWheel={(e) => {
               const y = e.deltaY;
-              if (e.pageY >= 900) {
+              if (e.pageY >= 800) {
                 const el = document.querySelector(
                   ".blog-btn"
                 ) as HTMLDivElement;
@@ -54,6 +54,7 @@ function Blog() {
               </button>
             </div>
             <div
+              className="blog-inner ck-content"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(currentBlog.content),
               }}

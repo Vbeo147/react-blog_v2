@@ -1,0 +1,72 @@
+.write-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.write-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.write-input input {
+  width: 50%;
+  height: 40px;
+  padding: 0 10px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-right: none;
+  font-size: 16px;
+}
+
+.write-input select {
+  width: 20%;
+  height: 40px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+}
+
+.write-input input:hover,
+.write-input input:focus,
+.write-input select:hover,
+.write-input select:focus {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.write-editor {
+  width: 80%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.write-submit {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 80%;
+}
+
+.write-submit button {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.write-submit button:hover {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.write-submit button:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.write-submit button:first-child {
+  margin-right: 10px;
+}

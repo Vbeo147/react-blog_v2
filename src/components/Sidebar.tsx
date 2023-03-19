@@ -116,6 +116,7 @@ function Sidebar() {
             onChange={onChange}
             type="text"
             placeholder="Category..."
+            maxLength={10}
           />
         </form>
         <div className="side-tag-flex">

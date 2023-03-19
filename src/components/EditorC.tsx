@@ -72,6 +72,15 @@ function EditorC({ content, SetUploading }: EditorProps) {
         const data = editor.getData();
         content.onChange(data);
       }}
+      onReady={(editor) => {
+        editor.editing.view.change((writer) => {
+          writer.setStyle(
+            "height",
+            "600px",
+            editor.editing.view.document.getRoot()
+          );
+        });
+      }}
     />
   );
 }

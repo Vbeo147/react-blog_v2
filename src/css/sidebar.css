@@ -111,4 +111,5 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: var(--background-color);
+  z-index: 1;
 }

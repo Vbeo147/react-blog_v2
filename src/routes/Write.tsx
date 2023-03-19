@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Editor from "../components/EditorC";
+import EditorC from "../components/EditorC";
 import { dbService } from "../firebase";
 import { useControlForm } from "../hooks/useControlForm";
 import { IForm } from "../interfaces/FormTypes";
@@ -26,6 +26,7 @@ function Write() {
   const { title, content, tag } = useControlForm(control);
   const resetValue = () => reset({ title: "", content: "", tag: "" });
   const onSubmit: SubmitHandler<IForm> = async ({ title, content, tag }) => {
+    SetUploading(true);
     if (title && tag) {
       if (currentBlog) {
         const blogUpdate: blogType = {
@@ -58,6 +59,7 @@ function Write() {
     }
     setImage([]);
     resetValue();
+    SetUploading(false);
     navigate("/");
   };
   useEffect(() => {
@@ -70,31 +72,31 @@ function Write() {
     if (!id) resetValue();
   }, [id, currentBlog]);
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <form className="write-flex" onSubmit={handleSubmit(onSubmit)}>
+      <div className="write-input">
         <input
-          placeholder="title"
+          placeholder="제목을 입력해주세요"
           value={title.value}
           onChange={(e) => title.onChange(e.target.value)}
         />
-        <Editor content={content} SetUploading={SetUploading} />
-      </div>
-      {!currentBlog && (
-        <div>
+        {!currentBlog && (
           <select
             value={tag.value}
             onChange={(e) => tag.onChange(e.target.value)}
           >
-            {!tag.value && <option value="">select this tag</option>}
+            {!tag.value && <option value="">태그를 선택해주세요</option>}
             {categoryReducer.categories?.map((item, index) => (
               <option key={index} value={item.id}>
                 {item.id}
               </option>
             ))}
           </select>
-        </div>
-      )}
-      <div>
+        )}
+      </div>
+      <div className="write-editor">
+        <EditorC content={content} SetUploading={SetUploading} />
+      </div>
+      <div className="write-submit">
         <button disabled={Uploading} type="submit">
           Enter
         </button>

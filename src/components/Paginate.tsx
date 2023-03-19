@@ -62,11 +62,14 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
           breakLabel="..."
           nextLabel=">"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="<"
-          activeClassName={"test"}
           initialPage={page - 1}
+          activeClassName={"paginate-active"}
+          containerClassName={"paginate-container"}
+          pageClassName={"paginate-page"}
+          previousClassName={"paginate-move-btn"}
+          nextClassName={"paginate-move-btn"}
         />
       </div>
     );
