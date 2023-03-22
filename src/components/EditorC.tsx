@@ -76,7 +76,7 @@ function EditorC({ content, SetUploading }: EditorProps) {
         editor.editing.view.change((writer) => {
           writer.setStyle(
             "height",
-            "600px",
+            "500px",
             editor.editing.view.document.getRoot()
           );
         });

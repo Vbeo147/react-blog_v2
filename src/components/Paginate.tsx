@@ -2,6 +2,7 @@ import ReactPaginate from "react-paginate";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PaginateProps {
   itemsPerPage: number;
@@ -14,6 +15,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
     ((page - 1) * itemsPerPage) % items.length
   );
   const [select, setSelect] = useState(page - 1);
+  const [isBack, setBack] = useState(false);
   const navigate = useNavigate();
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
@@ -21,6 +23,12 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   const handlePageClick = (selectedItem: { selected: number }) => {
     const selectedValue = selectedItem.selected;
     const newOffset = (selectedValue * itemsPerPage) % items.length;
+    console.log(page, selectedValue);
+    if (page < selectedValue + 1) {
+      setBack(true);
+    } else {
+      setBack(false);
+    }
     setItemOffset(newOffset);
     setSelect(selectedValue);
   };
@@ -35,29 +43,38 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   if (items.length > 0) {
     return (
       <div className="paginate-flex">
-        <ul className="paginate-inner">
-          {currentItems.map((item) => {
-            const timestamp = new Intl.DateTimeFormat("ko-KR", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-            return (
-              <li onClick={() => onClick(item.id)} key={item.id}>
-                <div className="paginate-inner-title root-overflow">
-                  <span>{`[ ${item.tag} ]`}</span>
-                  <span>{item.title}</span>
-                </div>
-                <div className="paginate-inner-time">
-                  <span>{timestamp.format(item.time.updatedAt)}</span>
-                  {item.time.updated && <span>( 수정됨 )</span>}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <AnimatePresence>
+          <motion.ul
+            key={page}
+            initial={{ x: isBack ? 300 : -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: isBack ? -300 : 300, opacity: 0, position: "absolute" }}
+            transition={{ duration: 0.4 }}
+            className="paginate-inner"
+          >
+            {currentItems.map((item) => {
+              const timestamp = new Intl.DateTimeFormat("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+              return (
+                <li onClick={() => onClick(item.id)} key={item.id}>
+                  <div className="paginate-inner-title root-overflow">
+                    <span>{`[ ${item.tag} ]`}</span>
+                    <span>{item.title}</span>
+                  </div>
+                  <div className="paginate-inner-time">
+                    <span>{timestamp.format(item.time.updatedAt)}</span>
+                    {item.time.updated && <span>( 수정됨 )</span>}
+                  </div>
+                </li>
+              );
+            })}
+          </motion.ul>
+        </AnimatePresence>
         <ReactPaginate
           breakLabel="..."
           nextLabel=">"
