@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.paginate-flex {
+  justify-content: space-between;
+  height: 80%;
+}
+
 .paginate-inner li {
   width: 100%;
   max-width: 50%;
@@ -59,11 +64,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 20%;
 }
 
 .paginate-page {
   margin: 0 5px;
-  border: 1px solid black;
+  border: 2px solid lightgray;
+  border-radius: 10px;
 }
 
 .paginate-page a {
@@ -76,7 +83,7 @@
 }
 
 .paginate-move-btn {
-  border: 1px solid black;
+  border: 1px solid lightgray;
   font-size: 20px;
 }
 
@@ -90,5 +97,5 @@
 }
 
 .paginate-active {
-  background-color: gray;
+  background-color: lightgray;
 }

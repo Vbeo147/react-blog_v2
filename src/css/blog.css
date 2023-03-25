@@ -57,6 +57,7 @@
 
 .blog-inner {
   width: 85%;
+  word-break: break-all;
 }
 
 .blog-inner img {

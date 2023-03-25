@@ -33,10 +33,9 @@ function Sidebar() {
       "해당 태그를 삭제할 시 소속된 블로그도 모두 삭제됩니다."
     );
     if (check) {
-      filterBlog(blogReducer.blog, id).forEach(
-        async (currentItem) =>
-          await dbService.doc(`blog/${currentItem.id}`).delete()
-      );
+      filterBlog(blogReducer.blog, id).forEach(async (currentItem) => {
+        await dbService.doc(`blog/${currentItem.id}`).delete();
+      });
       await dbService.doc(`categories/${id}`).delete();
     }
   };

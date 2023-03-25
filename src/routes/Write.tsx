@@ -7,14 +7,11 @@ import { IForm } from "../interfaces/FormTypes";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { useRecoilState } from "recoil";
-import { ImageArray } from "../atoms/Image";
 import { findBlog } from "../lib/blogUtils";
 import { useAppSelector } from "../modules/rootReducer";
 
 function Write() {
   const [Uploading, SetUploading] = useState(false);
-  const [Image, setImage] = useRecoilState(ImageArray);
   const { blogReducer, categoryReducer } = useAppSelector((state) => state);
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
@@ -34,7 +31,6 @@ function Write() {
           title,
           content,
           time: {
-            ...currentBlog.time,
             updatedAt: Date.now(),
             updated: true,
           },
@@ -47,9 +43,7 @@ function Write() {
           title,
           content,
           tag,
-          Images: [...Image],
           time: {
-            createdAt: Date.now(),
             updatedAt: Date.now(),
             updated: false,
           },
@@ -57,7 +51,6 @@ function Write() {
         await dbService.doc(`blog/${currentId}`).set(blogCreate);
       }
     }
-    setImage([]);
     resetValue();
     SetUploading(false);
     navigate("/");

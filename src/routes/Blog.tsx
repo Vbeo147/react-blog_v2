@@ -3,6 +3,7 @@ import { useAppSelector } from "../modules/rootReducer";
 import { findBlog } from "../lib/blogUtils";
 import DOMPurify from "dompurify";
 import { useEffect } from "react";
+import { dbService } from "../firebase";
 
 function Blog() {
   const { id } = useParams();
@@ -12,6 +13,13 @@ function Blog() {
   const navigate = useNavigate();
   const onClick = (nav: string) => {
     navigate(nav);
+  };
+  const onDelete = async (deleteId: string) => {
+    const check = window.confirm("해당 블로그를 삭제합니다");
+    if (check) {
+      await dbService.doc(`blog/${deleteId}`).delete();
+      navigate("/");
+    }
   };
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -49,6 +57,7 @@ function Blog() {
             </div>
             <div className="blog-btn">
               <button onClick={() => onClick(`/write/${id}`)}>수정</button>
+              <button onClick={() => onDelete(id as string)}>삭제</button>
               <button onClick={() => onClick(`/page/${PrevPage}`)}>
                 이전 페이지
               </button>

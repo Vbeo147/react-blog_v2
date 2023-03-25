@@ -37,7 +37,9 @@
   border: 2px solid black;
   cursor: pointer;
   display: inline;
-  width: 40%;
+  width: 50%;
+  min-width: 320px;
+  max-width: 600px;
   margin-bottom: 10px;
   border-radius: 10px;
   display: flex;

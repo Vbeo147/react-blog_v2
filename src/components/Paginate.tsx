@@ -2,7 +2,7 @@ import ReactPaginate from "react-paginate";
 import { blogType } from "../modules/types/blogTypes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface PaginateProps {
   itemsPerPage: number;
@@ -14,8 +14,7 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   const [itemOffset, setItemOffset] = useState(
     ((page - 1) * itemsPerPage) % items.length
   );
-  const [select, setSelect] = useState(page - 1);
-  const [isBack, setBack] = useState(false);
+  const [select, setSelect] = useState(0);
   const navigate = useNavigate();
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
@@ -23,32 +22,35 @@ function Paginate({ itemsPerPage, items, page }: PaginateProps) {
   const handlePageClick = (selectedItem: { selected: number }) => {
     const selectedValue = selectedItem.selected;
     const newOffset = (selectedValue * itemsPerPage) % items.length;
-    console.log(page, selectedValue);
-    if (page < selectedValue + 1) {
-      setBack(true);
-    } else {
-      setBack(false);
-    }
     setItemOffset(newOffset);
     setSelect(selectedValue);
-  };
-  const onClick = (id: string) => {
-    navigate(`/blog/${id}`);
   };
   useEffect(() => {
     if (select > pageCount) return navigate("/");
     navigate(`/page/${select + 1}`);
   }, [select]);
-  console.log("Paginate render");
+  const SlideVariants: Variants = {
+    initial: {
+      opacity: 0,
+      y: -30,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+  const onClick = (id: string) => {
+    navigate(`/blog/${id}`);
+  };
   if (items.length > 0) {
     return (
       <div className="paginate-flex">
         <AnimatePresence>
           <motion.ul
-            key={page}
-            initial={{ x: isBack ? 300 : -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: isBack ? -300 : 300, opacity: 0, position: "absolute" }}
+            key={select}
+            variants={SlideVariants}
+            initial="initial"
+            animate="animate"
             transition={{ duration: 0.4 }}
             className="paginate-inner"
           >
