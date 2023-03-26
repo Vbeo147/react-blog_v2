@@ -9,6 +9,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { filterBlog } from "../lib/blogUtils";
+import { useCheckAdmin } from "../hooks/useCheckAdmin";
 
 function Sidebar() {
   const [value, setValue] = useState("");
@@ -16,6 +17,7 @@ function Sidebar() {
   const [isVisible, setVisible] = useState(true);
   const { categoryReducer, blogReducer } = useAppSelector((state) => state);
   const navigate = useNavigate();
+  const isAdmin = useCheckAdmin();
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dbService.doc(`categories/${value}`).set({});
@@ -109,16 +111,18 @@ function Sidebar() {
           boxShadow: isOpen ? "1px 1px 8px 1px black" : "",
         }}
       >
-        <form onSubmit={onSubmit} className="side-form-flex">
-          <input
-            value={value}
-            onChange={onChange}
-            type="text"
-            placeholder="Category..."
-            maxLength={15}
-            minLength={3}
-          />
-        </form>
+        {isAdmin && (
+          <form onSubmit={onSubmit} className="side-form-flex">
+            <input
+              value={value}
+              onChange={onChange}
+              type="text"
+              placeholder="Category..."
+              maxLength={15}
+              minLength={3}
+            />
+          </form>
+        )}
         <div className="side-tag-flex">
           {categoryReducer.categories?.map((item, index) => {
             const currentBlog = filterBlog(blogReducer.blog, item.id);

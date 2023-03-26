@@ -12,7 +12,9 @@ import { useAppSelector } from "../modules/rootReducer";
 
 function Write() {
   const [Uploading, SetUploading] = useState(false);
-  const { blogReducer, categoryReducer } = useAppSelector((state) => state);
+  const { blogReducer, categoryReducer, authReducer } = useAppSelector(
+    (state) => state
+  );
   const { handleSubmit, control, reset } = useForm<IForm>({
     defaultValues: { title: "", content: "", tag: "" },
   });
@@ -64,6 +66,13 @@ function Write() {
       });
     if (!id) resetValue();
   }, [id, currentBlog]);
+  useEffect(() => {
+    if (
+      authReducer.auth.data?.providerData[0]?.uid !==
+      import.meta.env.VITE_ADMIN_ID
+    )
+      navigate("/");
+  }, [authReducer.auth.data]);
   return (
     <form className="write-flex" onSubmit={handleSubmit(onSubmit)}>
       <div className="write-input">

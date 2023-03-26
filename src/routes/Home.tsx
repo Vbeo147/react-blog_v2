@@ -73,7 +73,7 @@ function Home() {
           />
         </>
       ) : (
-        "Loading..."
+        <div style={{ textAlign: "center" }}>Loading...</div>
       )}
     </>
   );

@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useMatch } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useCheckAdmin } from "../hooks/useCheckAdmin";
 
 function Menu() {
   const dispatch = useAppDispatch();
   const { auth } = useAppSelector((state) => state.authReducer);
   const { github } = useAppSelector((state) => state.githubReducer);
+  const isAdmin = useCheckAdmin();
   const HomeMatch = useMatch("/");
   const PageMatch = useMatch("/page/*");
   const WriteMatch = useMatch("/write/*");
@@ -61,14 +63,16 @@ function Menu() {
         >
           <Link to={"/"}>Home</Link>
         </motion.button>
-        <motion.button
-          className={WriteMatch ? "menu-btn-active" : ""}
-          variants={whileVariants}
-          whileHover="hover"
-          custom={WriteMatch}
-        >
-          <Link to={"/write"}>Write</Link>
-        </motion.button>
+        {isAdmin && (
+          <motion.button
+            className={WriteMatch ? "menu-btn-active" : ""}
+            variants={whileVariants}
+            whileHover="hover"
+            custom={WriteMatch}
+          >
+            <Link to={"/write"}>Write</Link>
+          </motion.button>
+        )}
         <motion.button
           className={TagMatch ? "menu-btn-active" : ""}
           variants={whileVariants}
