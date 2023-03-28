@@ -1,9 +1,9 @@
+import { RouteObject, redirect } from "react-router-dom";
 import Root from "../Root";
 import Home from "../routes/Home";
-import Write from "../routes/Write";
-import { RouteObject, redirect } from "react-router-dom";
-import Category from "../routes/Category";
 import Blog from "../routes/Blog";
+import Write from "../routes/Write";
+import Category from "../routes/Category";
 
 export const routes: RouteObject[] = [
   {

@@ -55,10 +55,10 @@
 }
 
 .menu-btn-flex button {
-  width: 100px;
+  width: 85px;
   border: none;
   margin: 10px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   background-color: transparent;
   transition: all 0.2s linear;
@@ -69,7 +69,9 @@
   text-align: center;
   text-indent: 8px;
   padding: 6px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 

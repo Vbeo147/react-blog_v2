@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && vite build && shx cp dist/index.html dist/404.html",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "dompurify": "^3.0.0",
     "firebase": "^9.16.0",
     "framer-motion": "^10.0.1",
+    "gh-pages": "^5.0.0",
     "nanoid": "^4.0.1",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
@@ -37,8 +39,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
     "redux": "^4.2.1",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
+    "shx": "^0.3.4",
     "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {

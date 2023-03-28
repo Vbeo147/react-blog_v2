@@ -16,12 +16,15 @@ function Menu() {
   const PageMatch = useMatch("/page/*");
   const WriteMatch = useMatch("/write/*");
   const TagMatch = useMatch("/tag");
-  const onLogClick = () => {
+  const Login = () => {
     if (auth.data) {
       dispatch(LoginAuthThunk(false));
     } else {
       dispatch(LoginAuthThunk(true));
     }
+  };
+  const onLoginClick = () => {
+    Login();
   };
   const whileVariants = {
     hover: (isMatch: boolean) => {
@@ -37,7 +40,7 @@ function Menu() {
   return (
     <div className="menu-flex">
       <div className="menu-login-flex">
-        <div className="menu-profile-flex" onClick={onLogClick}>
+        <div className="menu-profile-flex" onClick={onLoginClick}>
           <div>
             {github.data?.avatar_url ? (
               <img

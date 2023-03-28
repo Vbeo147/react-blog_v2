@@ -4,6 +4,7 @@ import { findBlog } from "../lib/blogUtils";
 import DOMPurify from "dompurify";
 import { useEffect } from "react";
 import { dbService } from "../firebase";
+import { useCheckAdmin } from "../hooks/useCheckAdmin";
 
 function Blog() {
   const { id } = useParams();
@@ -11,6 +12,7 @@ function Blog() {
   const currentBlog = findBlog(blog, id);
   const PrevPage = localStorage.getItem("page");
   const navigate = useNavigate();
+  const isAdmin = useCheckAdmin();
   const onClick = (nav: string) => {
     navigate(nav);
   };
@@ -56,8 +58,12 @@ function Blog() {
               </div>
             </div>
             <div className="blog-btn">
-              <button onClick={() => onClick(`/write/${id}`)}>수정</button>
-              <button onClick={() => onDelete(id as string)}>삭제</button>
+              {isAdmin && (
+                <>
+                  <button onClick={() => onClick(`/write/${id}`)}>수정</button>
+                  <button onClick={() => onDelete(id as string)}>삭제</button>
+                </>
+              )}
               <button onClick={() => onClick(`/page/${PrevPage}`)}>
                 이전 페이지
               </button>

@@ -130,7 +130,9 @@ function Sidebar() {
               <details key={index}>
                 <summary className="side-summary">
                   <span>{`${item.id} (${currentBlog.length})`}</span>
-                  <button onClick={() => onDelete(item.id)}>X</button>
+                  {isAdmin && (
+                    <button onClick={() => onDelete(item.id)}>X</button>
+                  )}
                 </summary>
                 <ul className="side-list">
                   {currentBlog.map((blog) => (
