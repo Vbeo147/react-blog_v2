@@ -1,0 +1,1 @@
+import{r as a,i as r}from"./index-90c8ce41.js";const o=()=>{const[i,e]=a.useState(!1);return a.useEffect(()=>{r.onAuthStateChanged(t=>{var s;e(t?((s=t.providerData[0])==null?void 0:s.uid)==="98078731":!1)})},[]),i};export{o as u};
